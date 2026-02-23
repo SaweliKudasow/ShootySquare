@@ -3,39 +3,39 @@ using System.Collections;
 
 public class SquashStretch : MonoBehaviour
 {
-    public float squashFactor = 0.8f; // насколько объект сожмется
-    public float stretchFactor = 1.2f; // насколько объект растянется
-    public float duration = 0.2f; // длительность анимации
+    public float squashFactor = 0.8f; // Stauch-Faktor
+    public float stretchFactor = 1.2f; // Streck-Faktor
+    public float duration = 0.2f; // Animationsdauer
 
-    private Vector3 originalScale; // оригинальный размер объекта
+    private Vector3 originalScale; // Ursprungsgröße
 
     void Awake()
     {
-        originalScale = transform.localScale; // сохраняем оригинальный размер объекта
+        originalScale = transform.localScale; // Ursprungsgröße speichern
     }
 
     public void Squash()
     {
-        StopAllCoroutines(); // останавливаем все текущие корутины (чтобы предыдущие анимации не налаживались друг на друга)
-        StartCoroutine(AnimateSquashStretch(squashFactor, stretchFactor)); // сжимаем объект
+        StopAllCoroutines(); // laufende Koroutinen stoppen
+        StartCoroutine(AnimateSquashStretch(squashFactor, stretchFactor)); // Objekt stauchen
     }
 
     public void Stretch()
     {
-        StopAllCoroutines(); // останавливаем все текущие корутины (чтобы предыдущие анимации не налаживались друг на друга)
-        StartCoroutine(AnimateSquashStretch(stretchFactor, squashFactor)); // растягиваем объект
+        StopAllCoroutines(); // laufende Koroutinen stoppen
+        StartCoroutine(AnimateSquashStretch(stretchFactor, squashFactor)); // Objekt strecken
     }
 
-    // корутина для сжатия и растяжения объектов
+    // Koroutine für Stauch/Streck
     private IEnumerator AnimateSquashStretch(float xFactor, float yFactor)
     {
-        // получаем размер для сжатия и растяжения
+        // Skalen für Stauch/Streck
         Vector3 squashScale = new Vector3(originalScale.x * xFactor, originalScale.y * yFactor, originalScale.z);
         Vector3 stretchScale = new Vector3(originalScale.x * stretchFactor, originalScale.y * squashFactor, originalScale.z);
 
-        float elapsed = 0f; // отслеживает время анимации
+        float elapsed = 0f; // Animationszeit
 
-        // сжатие
+        // Stauchen
         while (elapsed < duration)
         {
             transform.localScale = Vector3.Lerp(originalScale, squashScale, elapsed / duration);
@@ -43,10 +43,10 @@ public class SquashStretch : MonoBehaviour
             yield return null;
         }
 
-        transform.localScale = squashScale; // устанавливаем размер
-        elapsed = 0f; // сбрасываем время
+        transform.localScale = squashScale; // Größe setzen
+        elapsed = 0f; // Zeit zurücksetzen
 
-        // разтягивание
+        // Strecken
         while (elapsed < duration)
         {
             transform.localScale = Vector3.Lerp(squashScale, stretchScale, elapsed / duration);
@@ -54,10 +54,10 @@ public class SquashStretch : MonoBehaviour
             yield return null;
         }
 
-        transform.localScale = stretchScale; // устанавливаем размер
-        elapsed = 0f; // сбрасываем время
+        transform.localScale = stretchScale; // Größe setzen
+        elapsed = 0f; // Zeit zurücksetzen
 
-        // возвращение к исходному размеру
+        // zurück zur Ursprungsgröße
         while (elapsed < duration)
         {
             transform.localScale = Vector3.Lerp(stretchScale, originalScale, elapsed / duration);
@@ -65,6 +65,6 @@ public class SquashStretch : MonoBehaviour
             yield return null;
         }
 
-        transform.localScale = originalScale; // устанавливаем размер
+        transform.localScale = originalScale; // Größe setzen
     }
 }

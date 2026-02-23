@@ -2,23 +2,23 @@ using UnityEngine;
 
 public class SetBulletParticles : MonoBehaviour
 {
-    public static SetBulletParticles Instance; // переменная для Singleton
-    public ParticleSystem bulletParticle; // префаб с системой частиц
+    public static SetBulletParticles Instance; // Singleton
+    public ParticleSystem bulletParticle; // Partikel-Prefab
     
     void Awake() {
-        // реализация Singleton
+        // Singleton
         if(Instance == null) {
-            Instance = this; // сохраняем ссылку на текущий объект
+            Instance = this; // Referenz auf dieses Objekt
         }
         else {
-            Destroy(gameObject); // если экземпляр уже существует то уничтожаем объект
+            Destroy(gameObject); // bei doppeltem Objekt entfernen
         }
     }
 
     public void SetParticles(Vector2 position) {
-        // создаем новый объект с системой частиц в заданной позиции
+        // Partikel an Position erzeugen
         ParticleSystem bulletObject = Instantiate(bulletParticle, position, Quaternion.identity);
-        bulletObject.Play(); // запускаем анимацию частиц
-        Destroy(bulletObject.gameObject, 0.8f); // уничтожаем объект с частицами
+        bulletObject.Play(); // Partikel abspielen
+        Destroy(bulletObject.gameObject, 0.8f); // Partikel-Objekt entfernen
     }
 }

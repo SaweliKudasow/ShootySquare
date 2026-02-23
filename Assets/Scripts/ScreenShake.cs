@@ -2,29 +2,29 @@ using UnityEngine;
 
 public class ScreenShake : MonoBehaviour
 {
-    private Vector3 originalPos; // исходная позиция камеры
-    public float shakeAmount = 0.2f; // интенсивность тряски
-    public float shakeDuration = 0.5f; // длительность тряски
-    private float shakeTime = 0f; // оставшееся время тряски
+    private Vector3 originalPos; // Kamera-Startposition
+    public float shakeAmount = 0.2f; // Wackel-Stärke
+    public float shakeDuration = 0.5f; // Wackel-Dauer
+    private float shakeTime = 0f; // verbleibende Zeit
 
     void Start() {
-        originalPos = transform.localPosition; // сохраняем исходное положение камеры
+        originalPos = transform.localPosition; // Kamera-Startposition speichern
     }
 
     void Update() {
         if(shakeTime > 0) {
-            // устанавливаем случайные позиции камеры
+            // Kamera zufällig verschieben
             transform.localPosition = originalPos + (Vector3)Random.insideUnitCircle * shakeAmount;
-            shakeTime -= Time.deltaTime; // уменьшаем таймер
+            shakeTime -= Time.deltaTime; // Timer verringern
         }
         else {
-            transform.localPosition = originalPos; // возвращаем камеру в исходное положение
+            transform.localPosition = originalPos; // Kamera zurücksetzen
         }
     }
 
     public void Shake(float duration, float intensity) {
-        shakeDuration = duration; // устанавливаем длительность тряски
-        shakeAmount = intensity; // устанавливаем интенсивность тряски
-        shakeTime = shakeDuration; // запускаем тряску
+        shakeDuration = duration; // Dauer setzen
+        shakeAmount = intensity; // Stärke setzen
+        shakeTime = shakeDuration; // Wackeln starten
     }
 }

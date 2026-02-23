@@ -2,49 +2,49 @@ using UnityEngine;
 
 public class ShootBullet : MonoBehaviour
 {
-    public GameObject bulletPrefab; // пуля
-    public Transform firePoint; // точка спавна пули
-    public float bulletSpeed = 10f; // скорость пули
-    public float knockbackForce = 5f; // сила отдачи
-    public ScreenShake mainCamera; // камера
-    public AudioClip shootSound; // звук выстрела
-    private Rigidbody2D playerRb; // компонент физики игрока
+    public GameObject bulletPrefab; // Kugel-Prefab
+    public Transform firePoint; // Schussposition
+    public float bulletSpeed = 10f; // Kugelgeschwindigkeit
+    public float knockbackForce = 5f; // Rückstoß
+    public ScreenShake mainCamera; // Kamera
+    public AudioClip shootSound; // Schusssound
+    private Rigidbody2D playerRb; // Spieler-Physik
 
     void Start()
     {
-        playerRb = GetComponent<Rigidbody2D>(); // получаем физику игрока
+        playerRb = GetComponent<Rigidbody2D>(); // Spieler-Rigidbody holen
     }
 
     void Update() {
-        // при нажатии на пкм
+        // bei Linksklick
         if(Input.GetMouseButtonDown(0)) {
-            Shoot(); // выстрел
-            GetComponent<AudioSource>().PlayOneShot(shootSound); // включаем звук выстрела
-            GetComponent<SquashStretch>().Squash(); // анимация
-            mainCamera.GetComponent<ScreenShake>().Shake(0.1f, 0.02f); // трясение камеры
+            Shoot(); // schießen
+            GetComponent<AudioSource>().PlayOneShot(shootSound); // Schusssound abspielen
+            GetComponent<SquashStretch>().Squash(); // Animation
+            mainCamera.GetComponent<ScreenShake>().Shake(0.1f, 0.02f); // Kamera wackeln
         }
     }
 
     void Shoot() {
-        // создаем пулю в точке firePoint
+        // Kugel an firePoint erzeugen
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
 
-        // получаем позицию курсора
+        // Mausposition
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0;
 
-        // вычисляем направление к курсору
+        // Richtung zur Maus
         Vector2 direction = (mousePosition - firePoint.position).normalized;
 
-        // двигаем пулю
+        // Kugel bewegen
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.linearVelocity = direction * bulletSpeed;
 
-        // поворачиваем пулю в сторону движения
+        // Kugel in Bewegungsrichtung drehen
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         bullet.transform.rotation = Quaternion.Euler(0, 0, angle);
 
-        // отдача игрока
+        // Spieler-Rückstoß
         playerRb.AddForce(-direction * knockbackForce, ForceMode2D.Impulse);
     }
 }

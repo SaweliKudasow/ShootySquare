@@ -2,30 +2,30 @@ using UnityEngine;
 
 public class SetEnemyParticles : MonoBehaviour
 {
-    public static SetEnemyParticles Instance; // переменная для Singleton
-    public ParticleSystem enemyParticle; // первый эффект частиц
-    public ParticleSystem enemyParticle2; // второй эффект частиц
+    public static SetEnemyParticles Instance; // Singleton
+    public ParticleSystem enemyParticle; // Partikeleffekt 1
+    public ParticleSystem enemyParticle2; // Partikeleffekt 2
     
     void Awake() {
-        // реализация Singleton
+        // Singleton
         if(Instance == null) {
-            Instance = this; // сохраняем ссылку на текущий объект
+            Instance = this; // Referenz auf dieses Objekt
         }
         else {
-            Destroy(gameObject); // если экземпляр уже существует то уничтожаем объект
+            Destroy(gameObject); // bei doppeltem Objekt entfernen
         }
     }
 
     public void SetParticles(Vector2 position) {
-        // создаем два разных эффекта частиц в одной позиции
+        // zwei Partikeleffekte an einer Stelle
         ParticleSystem enemyObject = Instantiate(enemyParticle, position, Quaternion.identity);
         ParticleSystem enemyObject2 = Instantiate(enemyParticle2, position, Quaternion.identity);
 
-        // запускаем частицы
+        // Partikel starten
         enemyObject.Play();
         enemyObject2.Play();
 
-        // удаляем частицы
+        // Partikel entfernen
         Destroy(enemyObject.gameObject, 2f);
         Destroy(enemyObject2.gameObject, 2f);
     }

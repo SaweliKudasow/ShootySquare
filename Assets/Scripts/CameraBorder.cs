@@ -2,44 +2,44 @@ using UnityEngine;
 
 public class CameraBorder : MonoBehaviour
 {
-    public Transform topWall, leftWall, rightWall; // стены
-    public float wallThickness = 0.5f; // толщина стен
+    public Transform topWall, leftWall, rightWall; // Wände
+    public float wallThickness = 0.5f; // Wandstärke
 
-    private int lastScreenWidth, lastScreenHeight; // отслеживание изменений размеров экрана
+    private int lastScreenWidth, lastScreenHeight; // Bildschirmgröße
 
     void Start()
     {
-        UpdateBorder(); // устанавливаем границы стен
+        UpdateBorder(); // Grenzen setzen
     }
 
     void Update()
     {
-        // проверяем изменился ли размер экрана
+        // Bildschirmgröße geändert?
         if (Screen.width != lastScreenWidth || Screen.height != lastScreenHeight)
         {
-            UpdateBorder(); // обновляем границы
-            lastScreenWidth = Screen.width; // сохраняем новое значение ширины экрана
-            lastScreenHeight = Screen.height; // сохраняем новое значение высоты экрана
+            UpdateBorder(); // Grenzen aktualisieren
+            lastScreenWidth = Screen.width; // Breite speichern
+            lastScreenHeight = Screen.height; // Höhe speichern
         }
     }
 
     void UpdateBorder()
     {
-        Camera cam = Camera.main; // получаем камеру
-        float camHeight = 2f * cam.orthographicSize; // высота камеры
-        float camWidth = camHeight * cam.aspect; // ширина камеры
+        Camera cam = Camera.main; // Kamera
+        float camHeight = 2f * cam.orthographicSize; // Kamerahöhe
+        float camWidth = camHeight * cam.aspect; // Kamerabreite
 
-        Vector3 camPos = cam.transform.position; // позиция камеры
+        Vector3 camPos = cam.transform.position; // Kameraposition
 
-        // устанавливаем позицию и размер верхней стены
+        // obere Wand Position und Größe
         topWall.position = new Vector3(camPos.x, camPos.y + camHeight / 2 + wallThickness / 2, 0);
         topWall.localScale = new Vector3(camWidth, wallThickness, 1);
 
-        // устанавливаем позицию левой и правой стены
+        // linke/rechte Wand Position
         leftWall.position = new Vector3(camPos.x - camWidth / 2 - wallThickness / 2, camPos.y, 0);
         rightWall.position = new Vector3(camPos.x + camWidth / 2 + wallThickness / 2, camPos.y, 0);
 
-        // устанавливаем размер левой и правой стены
+        // linke/rechte Wand Größe
         leftWall.localScale = new Vector3(wallThickness, camHeight, 1);
         rightWall.localScale = new Vector3(wallThickness, camHeight, 1);
     }

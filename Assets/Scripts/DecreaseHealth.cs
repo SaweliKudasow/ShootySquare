@@ -2,33 +2,33 @@ using UnityEngine;
 
 public class DecreaseHealth : MonoBehaviour
 {
-    public AudioClip DamageSound; // звук удара
-    private Vector2 enemyPosition; // позиция противника
-    private int health = 3; // здоровье врага
-    private ChangeColor changeColor; // изменение цвета
-    private SquashStretch squashStretch; // анимация растяжения
-    private ScreenShake mainCamera; // тряска камеры
+    public AudioClip DamageSound; // Treffersound
+    private Vector2 enemyPosition; // Gegnerposition
+    private int health = 3; // Gegner-Leben
+    private ChangeColor changeColor; // Farbwechsel
+    private SquashStretch squashStretch; // Streck-Animation
+    private ScreenShake mainCamera; // Kamera-Wackeln
 
     void Awake() {
-        // получаем различные компоненты
+        // Komponenten holen
         changeColor = GetComponent<ChangeColor>();
         squashStretch = GetComponent<SquashStretch>();
         mainCamera = Camera.main.GetComponent<ScreenShake>();
     }
 
     void OnTriggerEnter2D(Collider2D other) {
-        // столкновение с пулей
+        // Kollision mit Kugel
         if(other.gameObject.CompareTag("Bullet")) {
-            health--; // уменьшаем здоровье
-            changeColor.ChangeColorForSomeTime(Color.white); // меняем цвет на белый
-            squashStretch.Stretch(); // запускаем анимацию растягивания
-            GetComponent<AudioSource>().PlayOneShot(DamageSound); // запускаем звук удара
+            health--; // Leben verringern
+            changeColor.ChangeColorForSomeTime(Color.white); // Farbe auf Weiß
+            squashStretch.Stretch(); // Streck-Animation starten
+            GetComponent<AudioSource>().PlayOneShot(DamageSound); // Treffersound abspielen
 
             if(health == 0) {
-                enemyPosition = transform.position; // получаем позицию
-                SetEnemyParticles.Instance.SetParticles(enemyPosition); // передаем позицию
-                mainCamera.Shake(0.1f, 0.1f); // трясение камеры
-                Destroy(gameObject, 0.1f); // уничтожаем объект через 0.1 секунду
+                enemyPosition = transform.position; // Position holen
+                SetEnemyParticles.Instance.SetParticles(enemyPosition); // Particles auf enemyPosition setzen
+                mainCamera.Shake(0.1f, 0.1f); // Kamera wackeln
+                Destroy(gameObject, 0.1f); // Objekt nach 0.1s entfernen
             }
         }
     }

@@ -2,17 +2,17 @@ using UnityEngine;
 
 public class SpawnEnemy : MonoBehaviour
 {
-    public GameObject enemy; // враг
-    public float minX = -7f; // минимальная X координата
-    public float maxX = 7f;  // максимальная X координата
-    public float spawnY = 3f; // Y координата спавна
+    public GameObject enemy; // Gegner-Prefab
+    public float minX = -7f; // min. X
+    public float maxX = 7f;  // max. X
+    public float spawnY = 3f; // Spawn-Y
 
     void Update() {
-        // если на сцене нет врагов
+        // wenn kein Gegner da
         if(GameObject.FindGameObjectWithTag("Enemy") == null) {
-            float randomX = Random.Range(minX, maxX); // генерируем случайную X координату
-            Vector2 spawnPosition = new Vector2(randomX, spawnY); // задаем координаты врагу
-            Instantiate(enemy, spawnPosition, Quaternion.identity); // спавним врага
+            float randomX = Random.Range(minX, maxX); // zufällige X-Koordinate
+            Vector2 spawnPosition = new Vector2(randomX, spawnY); // Spawn-Position
+            Instantiate(enemy, spawnPosition, Quaternion.identity); // Gegner spawnen
         }
     }
 }
