@@ -1,0 +1,24 @@
+{
+  "name": "shootysquare",
+  "version": "1.0.0",
+  "description": "ShootySquare is a small 2D shooter made with Unity 🧩. You play as a little cube 🟦 that can aim and shoot at other cubes 🟥 using your mouse 💥. It’s a fast, minimalistic, and fun experience focused on precision and quick reflexes.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SaweliKudasow/ShootySquare.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/SaweliKudasow/ShootySquare/issues"
+  },
+  "homepage": "https://github.com/SaweliKudasow/ShootySquare#readme"
+}
