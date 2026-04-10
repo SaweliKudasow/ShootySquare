@@ -1,6 +1,7 @@
 /.vscode/
 /.plastic/
 ignore.conf
+.DS_Store
 
 # Unity .gitignore Template
 .utmp/
